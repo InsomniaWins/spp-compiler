@@ -1,5 +1,8 @@
 package wins.insomnia.sppcompiler;
 
+import wins.insomnia.sppcompiler.parse.Parser;
+import wins.insomnia.sppcompiler.parse.SyntaxTree;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -55,7 +58,7 @@ public class SPPCompiler {
 
 
 		// parse tokens
-
+		Parser parser = new Parser(tokens);
 
 
 	}
