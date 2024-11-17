@@ -36,6 +36,11 @@ public class LexicalAnalyzer {
 	}
 
 	private char peekChar(int offset) {
+
+		if (currentCharIndex + offset > currentLine.length() - 1) {
+			return '\0';
+		}
+
 		return currentLine.charAt(currentCharIndex + offset);
 	}
 
@@ -128,6 +133,10 @@ public class LexicalAnalyzer {
 				else {
 
 					switch (currentChar) {
+						case '+' -> TOKENS.add(new Token(Token.TokenType.OPERATOR_ADD, null, currentLineIndex));
+						case '-' -> TOKENS.add(new Token(Token.TokenType.OPERATOR_SUBTRACT, null, currentLineIndex));
+						case '*' -> TOKENS.add(new Token(Token.TokenType.OPERATOR_MULTIPLY, null, currentLineIndex));
+						case '/' -> TOKENS.add(new Token(Token.TokenType.OPERATOR_DIVIDE, null, currentLineIndex));
 						case ';' -> TOKENS.add(new Token(Token.TokenType.NEW_LINE, null, currentLineIndex));
 						case '=' -> {
 							if (peekChar() == '=') {
@@ -157,6 +166,7 @@ public class LexicalAnalyzer {
 
 		}
 
+		TOKENS.add(new Token(Token.TokenType.END_OF_FILE, null, currentLineIndex));
 		FILE_SCANNER.reset();
 	}
 

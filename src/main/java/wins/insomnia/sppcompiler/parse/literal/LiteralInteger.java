@@ -1,8 +1,9 @@
 package wins.insomnia.sppcompiler.parse.literal;
 
 import wins.insomnia.sppcompiler.parse.SyntaxTreeNode;
+import wins.insomnia.sppcompiler.parse.misc.Expression;
 
-public class LiteralInteger extends SyntaxTreeNode {
+public class LiteralInteger extends Expression {
 
 	public Integer value;
 
@@ -13,10 +14,5 @@ public class LiteralInteger extends SyntaxTreeNode {
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	@Override
-	public SyntaxTreeNode evaluate() {
-		return this;
 	}
 }

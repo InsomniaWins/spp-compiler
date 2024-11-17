@@ -1,34 +1,29 @@
 package wins.insomnia.sppcompiler.parse;
 
+import java.util.ArrayList;
+
 public class SyntaxTree {
 
-	private SyntaxTreeNode root;
+	private final ArrayList<SyntaxTreeNode> NODES = new ArrayList<>();
 
-	public void setRoot(SyntaxTreeNode newRoot) {
-
-		if (newRoot.getParent() != null) {
-			System.out.println("Cannot set node with parents as the tree root!");
-			return;
-		}
-
-		if (root != null) {
-			root.setTree(null);
-		}
-
-		newRoot.setTree(this);
-		root = newRoot;
-
+	public void addNode(SyntaxTreeNode node) {
+		NODES.add(node);
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder outputString = new StringBuilder();
 
-	public void printTree() {
-		if (root == null) {
-			System.out.println("Null syntax tree: no root node!");
-			return;
+		for (SyntaxTreeNode node : NODES) {
+			if (node == null) {
+				outputString.append("null, ");
+				continue;
+			}
+
+			outputString.append(node).append(", ");
 		}
 
-		System.out.println(root);
-
+		return outputString.toString();
 	}
 
 }

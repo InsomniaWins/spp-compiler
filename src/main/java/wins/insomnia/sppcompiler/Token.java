@@ -2,7 +2,7 @@ package wins.insomnia.sppcompiler;
 
 public record Token(TokenType tokenType, Object tokenValue, int lineIndex) {
 
-	enum TokenType {
+	public enum TokenType {
 		// built-in functions
 		FUNCTION_LOCK_IN,
 
@@ -12,6 +12,7 @@ public record Token(TokenType tokenType, Object tokenValue, int lineIndex) {
 		KEYWORD_SIGMA,
 		KEYWORD_IS_GIVING,
 		KEYWORD_INT,
+		KEYWORD_NULL,
 
 
 		// literals
@@ -41,7 +42,8 @@ public record Token(TokenType tokenType, Object tokenValue, int lineIndex) {
 
 		// misc
 		NEW_LINE,
-		IDENTIFIER
+		IDENTIFIER,
 
+		END_OF_FILE
 	}
 }

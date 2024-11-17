@@ -1,14 +1,17 @@
 package wins.insomnia.sppcompiler;
 
 import wins.insomnia.sppcompiler.parse.Parser;
+import wins.insomnia.sppcompiler.parse.SyntaxAnalyzer;
 import wins.insomnia.sppcompiler.parse.SyntaxTree;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class SPPCompiler {
+
 
 	public static void main(String[] args) {
 
@@ -18,6 +21,7 @@ public class SPPCompiler {
 
 			System.exit(1);
 		}
+
 
 		String sourceFilePath = args[0];
 		compileSourceFile(sourceFilePath);
@@ -60,6 +64,9 @@ public class SPPCompiler {
 		// parse tokens
 		Parser parser = new Parser(tokens);
 
+
+		// syntax analysis
+		SyntaxAnalyzer syntaxAnalyzer = new SyntaxAnalyzer(parser);
 
 	}
 
