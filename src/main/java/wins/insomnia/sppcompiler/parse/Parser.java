@@ -1,5 +1,6 @@
 package wins.insomnia.sppcompiler.parse;
 
+import wins.insomnia.sppcompiler.tree.expression.AssignmentExpression;
 import wins.insomnia.sppcompiler.tree.statement.Program;
 import wins.insomnia.sppcompiler.Token;
 import wins.insomnia.sppcompiler.parse.literal.LiteralInteger;
@@ -64,11 +65,25 @@ public class Parser {
 	}
 
 	private Expression parseExpression() {
-
-		return parseAdditionExpression();
-
+		return parseAssignmentExpression();
 	}
 
+	private Expression parseAssignmentExpression() {
+		Expression left = parseAdditionExpression();
+
+		if (peekNext() != null && peekNext().tokenType() == Token.TokenType.OPERATOR_SET_EQUALS) {
+			popNext();
+
+			if (!(left instanceof Identifier)) {
+				throw new RuntimeException("Attempted assigning a value to an expression not of type \"identifier\": " + left);
+			}
+
+			Expression value = parseAssignmentExpression();
+			return new AssignmentExpression((Identifier) left, value);
+		}
+
+		return left;
+	}
 
 	private Expression parseAdditionExpression() {
 

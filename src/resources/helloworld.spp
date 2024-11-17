@@ -1,3 +1,7 @@
-bet x = 2;
-bet y = 3;
-bet z = x + y;
+bet x = 0;
+x = x + 1;
+x = x + 1;
+x = x + 1;
+x = x + 1;
+x = x + 1;
+x = x + 1;

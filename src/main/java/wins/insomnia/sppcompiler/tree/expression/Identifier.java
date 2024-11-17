@@ -16,6 +16,14 @@ public class Identifier extends Expression {
         return "Identifier: {" + NAME + "}";
     }
 
+    public String getName() {
+        return NAME;
+    }
+
+    public String getIdentifierString() {
+        return NAME;
+    }
+
     private Expression getValue(Environment environment) {
         return environment.getVariableEnvironment(NAME).getVariable(NAME).evaluate(environment);
     }

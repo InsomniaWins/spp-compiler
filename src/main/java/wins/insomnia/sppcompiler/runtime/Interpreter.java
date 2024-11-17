@@ -1,5 +1,6 @@
 package wins.insomnia.sppcompiler.runtime;
 
+import wins.insomnia.sppcompiler.tree.expression.AssignmentExpression;
 import wins.insomnia.sppcompiler.tree.statement.Program;
 import wins.insomnia.sppcompiler.tree.statement.Statement;
 import wins.insomnia.sppcompiler.parse.literal.LiteralBool;
@@ -10,6 +11,7 @@ import wins.insomnia.sppcompiler.tree.statement.VariableDeclaration;
 import java.util.ArrayList;
 
 public class Interpreter {
+
 
     private Expression evaluateVariableDeclaration(VariableDeclaration variableDeclaration, Environment environment) {
 
@@ -37,7 +39,10 @@ public class Interpreter {
         for (Statement statement : statements) {
             Expression result = null;
 
-            if (statement instanceof Expression expression) {
+            if (statement instanceof AssignmentExpression assignmentExpression) {
+                result = assignmentExpression.evaluate(environment);
+            }
+            else if (statement instanceof Expression expression) {
                 result = evaluateExpression(expression, environment);
             }
             else if (statement instanceof VariableDeclaration variableDeclaration) {

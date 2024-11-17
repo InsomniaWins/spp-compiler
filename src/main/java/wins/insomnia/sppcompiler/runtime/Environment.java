@@ -47,7 +47,7 @@ public class Environment {
 
     }
 
-    public void setVariable(String variableName, Expression value) {
+    public Expression setVariable(String variableName, Expression value) {
 
         Environment environment = getVariableEnvironment(variableName);
 
@@ -56,7 +56,7 @@ public class Environment {
         }
 
         environment.VARIABLES.put(variableName, value);
-
+        return value;
     }
 
     public Environment getVariableEnvironment(String variableName) {
