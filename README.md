@@ -56,3 +56,9 @@ yap(sigma_string);
 
 //-------------------------- fin ----------------------------
 ```
+
+Next save the file and open a terminal. Cd into the directory you made. Then (using java 23+) run the jar as follows:
+
+```
+"dir/to/java" -jar "spp-compiler.jar" "helloworld.spp"
+```
