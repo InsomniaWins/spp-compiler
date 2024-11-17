@@ -1,9 +1,11 @@
 package wins.insomnia.sppcompiler.tree.expression;
 
 import wins.insomnia.sppcompiler.Token;
-import wins.insomnia.sppcompiler.parse.literal.LiteralInteger;
-import wins.insomnia.sppcompiler.parse.literal.LiteralNull;
+import wins.insomnia.sppcompiler.tree.literal.Literal;
+import wins.insomnia.sppcompiler.tree.literal.LiteralInteger;
+import wins.insomnia.sppcompiler.tree.literal.LiteralNull;
 import wins.insomnia.sppcompiler.runtime.Environment;
+import wins.insomnia.sppcompiler.tree.literal.LiteralString;
 
 public class BinaryExpression extends Expression {
 
@@ -59,6 +61,18 @@ public class BinaryExpression extends Expression {
 
                 case OPERATOR_DIVIDE -> {
                     return new LiteralInteger(leftInt.getValue() / rightInt.getValue());
+                }
+            }
+
+        } else {
+
+            if (leftExpression instanceof LiteralString && rightExpression instanceof Literal<?>) {
+
+                switch (getOperator()) {
+                    case OPERATOR_ADD -> {
+                        String concatString = ((LiteralString) leftExpression).getValue();
+                        return new LiteralString(concatString + ((Literal<?>) rightExpression).getValue());
+                    }
                 }
             }
 

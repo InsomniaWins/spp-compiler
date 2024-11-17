@@ -1,19 +1,14 @@
 package wins.insomnia.sppcompiler;
 
-import java.util.HashMap;
-
 public record Token(TokenType tokenType, Object tokenValue, int lineIndex) {
 
 	public enum TokenType {
 		// built-in functions
-		FUNCTION_LOCK_IN,
+		FUNCTION_YAP,       // yap( . . . )
 
 
 		// keywords
-		KEYWORD_FLEX,
-		KEYWORD_SIGMA,
-		KEYWORD_IS_GIVING,
-		KEYWORD_BET,
+		KEYWORD_BET,        // bet
 
 
 		// literals
@@ -26,24 +21,27 @@ public record Token(TokenType tokenType, Object tokenValue, int lineIndex) {
 
 
 		// operators
-		OPERATOR_ADD,
-		OPERATOR_SUBTRACT,
-		OPERATOR_MULTIPLY,
-		OPERATOR_DIVIDE,
-		OPERATOR_COMPARE_EQUALS,
-		OPERATOR_SET_EQUALS,
+		OPERATOR_ADD,            // +
+		OPERATOR_SUBTRACT,       // -
+		OPERATOR_MULTIPLY,       // *
+		OPERATOR_DIVIDE,         // /
+		OPERATOR_COMPARE_EQUALS, // ==
+		OPERATOR_SET_EQUALS,     // =
 
 
 		// special symbols
-		OPENING_CURLY_BRACE,
-		CLOSING_CURLY_BRACE,
-		OPENING_BRACE,
-		CLOSING_BRACE,
-		COMMA,
-
+		QUOTATION_MARK,
+		OPENING_CURLY_BRACKET,  // {
+		CLOSING_CURLY_BRACKET,  // }
+		OPENING_ROUND_BRACKET,  // (
+		CLOSING_ROUND_BRACKET,  // )
+		OPENING_SQUARE_BRACKET, // [
+		CLOSING_SQUARE_BRACKET, // ]
+		COMMA,                  // ,
+		COLON,                  // :
 
 		// misc
-		NEW_LINE,
+		NEW_LINE,              // ;
 		IDENTIFIER,
 
 		END_OF_FILE

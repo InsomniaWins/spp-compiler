@@ -68,13 +68,14 @@ public class SPPCompiler {
 
 
 		// tokenize
-		System.out.println(" >> tokenizing " + sourceFilePath + " . . .");
+		//System.out.println(" >> tokenizing " + sourceFilePath + " . . .");
 		LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer(sourceScanner);
 		ArrayList<Token> tokens = lexicalAnalyzer.getTokens();
 
+		/*
 		for (Token token : tokens) {
 			System.out.println(token.tokenType() + ":  \"" + token.tokenValue() + "\"");
-		}
+		}*/
 
 		sourceScanner.close();
 

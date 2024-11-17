@@ -99,10 +99,7 @@ public class LexicalAnalyzer {
 
 						case "void" -> TOKENS.add(new Token(Token.TokenType.LITERAL_VOID, null, currentLineIndex));
 						case "bet" -> TOKENS.add(new Token(Token.TokenType.KEYWORD_BET, null, currentLineIndex));
-						case "isGiving" -> TOKENS.add(new Token(Token.TokenType.KEYWORD_IS_GIVING, null, currentLineIndex));
-						case "sigma" -> TOKENS.add(new Token(Token.TokenType.KEYWORD_SIGMA, null, currentLineIndex));
-						case "lockIn" -> TOKENS.add(new Token(Token.TokenType.FUNCTION_LOCK_IN, null, currentLineIndex));
-						case "flex" -> TOKENS.add(new Token(Token.TokenType.KEYWORD_FLEX, null, currentLineIndex));
+						case "yap" -> TOKENS.add(new Token(Token.TokenType.FUNCTION_YAP, null, currentLineIndex));
 						case "null" -> TOKENS.add(new Token(Token.TokenType.LITERAL_NULL, null, currentLineIndex));
 						default -> TOKENS.add(new Token(Token.TokenType.IDENTIFIER, tokenValue, currentLineIndex));
 
@@ -130,6 +127,36 @@ public class LexicalAnalyzer {
 
 				}
 
+
+				// string literal
+				else if (currentChar == '"') {
+
+					int literalStartLine = currentLineIndex;
+
+					currentChar = nextChar();
+
+					tokenValueBuilder.append(currentChar);
+
+					while (hasNextChar() && peekChar() != '"') {
+
+						currentChar = nextChar();
+						tokenValueBuilder.append(currentChar);
+
+					}
+
+					if (peekChar() != '"') {
+						throw new RuntimeException("Failed to find closing quotation mark for string literal starting on line: " + currentLineIndex + 1 + "!");
+					}
+
+					tokenValue = tokenValueBuilder.toString();
+
+					currentChar = nextChar();
+
+					TOKENS.add(new Token(Token.TokenType.LITERAL_STRING, tokenValue, currentLineIndex));
+
+					tokenValueBuilder.setLength(0);
+				}
+
 				// special characters
 				else {
 
@@ -148,10 +175,13 @@ public class LexicalAnalyzer {
 							}
 						}
 						case ',' -> TOKENS.add(new Token(Token.TokenType.COMMA, null, currentLineIndex));
-						case '{' -> TOKENS.add(new Token(Token.TokenType.OPENING_CURLY_BRACE, null, currentLineIndex));
-						case '}' -> TOKENS.add(new Token(Token.TokenType.CLOSING_CURLY_BRACE, null, currentLineIndex));
-						case '(' -> TOKENS.add(new Token(Token.TokenType.OPENING_BRACE, null, currentLineIndex));
-						case ')' -> TOKENS.add(new Token(Token.TokenType.CLOSING_BRACE, null, currentLineIndex));
+						case ':' -> TOKENS.add(new Token(Token.TokenType.COLON, null, currentLineIndex));
+						case '{' -> TOKENS.add(new Token(Token.TokenType.OPENING_CURLY_BRACKET, null, currentLineIndex));
+						case '}' -> TOKENS.add(new Token(Token.TokenType.CLOSING_CURLY_BRACKET, null, currentLineIndex));
+						case '(' -> TOKENS.add(new Token(Token.TokenType.OPENING_ROUND_BRACKET, null, currentLineIndex));
+						case ')' -> TOKENS.add(new Token(Token.TokenType.CLOSING_ROUND_BRACKET, null, currentLineIndex));
+						case '[' -> TOKENS.add(new Token(Token.TokenType.OPENING_SQUARE_BRACKET, null, currentLineIndex));
+						case ']' -> TOKENS.add(new Token(Token.TokenType.CLOSING_SQUARE_BRACKET, null, currentLineIndex));
 						default -> {
 
 							System.out.println("Failed to compile!");

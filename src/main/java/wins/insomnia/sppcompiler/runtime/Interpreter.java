@@ -1,12 +1,13 @@
 package wins.insomnia.sppcompiler.runtime;
 
 import wins.insomnia.sppcompiler.tree.expression.AssignmentExpression;
+import wins.insomnia.sppcompiler.tree.literal.Literal;
 import wins.insomnia.sppcompiler.tree.statement.Program;
 import wins.insomnia.sppcompiler.tree.statement.Statement;
-import wins.insomnia.sppcompiler.parse.literal.LiteralBool;
-import wins.insomnia.sppcompiler.parse.literal.LiteralNull;
+import wins.insomnia.sppcompiler.tree.literal.LiteralNull;
 import wins.insomnia.sppcompiler.tree.expression.Expression;
 import wins.insomnia.sppcompiler.tree.statement.VariableDeclaration;
+import wins.insomnia.sppcompiler.tree.statement.YapCall;
 
 import java.util.ArrayList;
 
@@ -42,14 +43,24 @@ public class Interpreter {
             if (statement instanceof AssignmentExpression assignmentExpression) {
                 result = assignmentExpression.evaluate(environment);
             }
+            else if (statement instanceof YapCall yapCall) {
+
+                Expression yapInput = yapCall.getValue().evaluate(environment);
+
+                if (yapInput instanceof Literal<?> literal) {
+                    System.out.println(literal.getValue());
+                } else {
+                    System.out.println(yapInput);
+                }
+
+            }
             else if (statement instanceof Expression expression) {
+
                 result = evaluateExpression(expression, environment);
             }
             else if (statement instanceof VariableDeclaration variableDeclaration) {
                 result = evaluateVariableDeclaration(variableDeclaration, environment).evaluate(environment);
             }
-
-            System.out.println("statement: " + statement + "\nresult: " + result);
 
         }
 
@@ -59,18 +70,9 @@ public class Interpreter {
     public Environment runProgram(Program program) {
 
         Environment environment = new Environment();
-        environment.declareAndInitializeVariable("false", new LiteralBool(false));
-        environment.declareAndInitializeVariable("true", new LiteralBool(true));
+        environment.initializeGlobalScope();
         evaluateProgram(program, environment);
         return environment;
-
-    }
-
-
-    // used for testing/running the interpreter
-    public static void main(String[] args) {
-
-
 
     }
 

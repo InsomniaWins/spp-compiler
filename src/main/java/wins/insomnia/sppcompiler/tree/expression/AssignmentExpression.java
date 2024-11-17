@@ -1,6 +1,5 @@
 package wins.insomnia.sppcompiler.tree.expression;
 
-import wins.insomnia.sppcompiler.parse.literal.LiteralInteger;
 import wins.insomnia.sppcompiler.runtime.Environment;
 
 public class AssignmentExpression extends Expression {

@@ -1,15 +1,17 @@
 package wins.insomnia.sppcompiler.parse;
 
 import wins.insomnia.sppcompiler.tree.expression.AssignmentExpression;
+import wins.insomnia.sppcompiler.tree.literal.LiteralString;
 import wins.insomnia.sppcompiler.tree.statement.Program;
 import wins.insomnia.sppcompiler.Token;
-import wins.insomnia.sppcompiler.parse.literal.LiteralInteger;
-import wins.insomnia.sppcompiler.parse.literal.LiteralNull;
+import wins.insomnia.sppcompiler.tree.literal.LiteralInteger;
+import wins.insomnia.sppcompiler.tree.literal.LiteralNull;
 import wins.insomnia.sppcompiler.tree.expression.BinaryExpression;
 import wins.insomnia.sppcompiler.tree.expression.Expression;
 import wins.insomnia.sppcompiler.tree.expression.Identifier;
 import wins.insomnia.sppcompiler.tree.statement.Statement;
 import wins.insomnia.sppcompiler.tree.statement.VariableDeclaration;
+import wins.insomnia.sppcompiler.tree.statement.YapCall;
 
 import java.util.ArrayList;
 
@@ -124,6 +126,16 @@ public class Parser {
 
 		switch (tokenType) {
 
+			case Token.TokenType.FUNCTION_YAP -> {
+
+				popNext();
+				popNextExpected(Token.TokenType.OPENING_ROUND_BRACKET);
+				Expression valueWithinBrackets = parseExpression();
+				popNextExpected(Token.TokenType.CLOSING_ROUND_BRACKET);
+
+				return valueWithinBrackets;
+			}
+
 			case Token.TokenType.NEW_LINE -> {
 				popNext();
 				return null;
@@ -144,11 +156,15 @@ public class Parser {
 				return new LiteralInteger((Integer) popNext().tokenValue());
 			}
 
-			case Token.TokenType.OPENING_BRACE -> {
-				Token openBrace = popNext();
-				Expression valueWithinBraces = parseExpression();
-				Token closeBrace = popNextExpected(Token.TokenType.CLOSING_BRACE);
-				return valueWithinBraces;
+			case Token.TokenType.LITERAL_STRING -> {
+				return new LiteralString((String) popNext().tokenValue());
+			}
+
+			case Token.TokenType.OPENING_ROUND_BRACKET -> {
+				Token openBracket = popNext();
+				Expression valueWithinBrackets = parseExpression();
+				Token closeBracket = popNextExpected(Token.TokenType.CLOSING_ROUND_BRACKET);
+				return valueWithinBrackets;
 			}
 
 			case Token.TokenType.END_OF_FILE -> {
@@ -162,6 +178,18 @@ public class Parser {
 			}
 		}
 
+	}
+
+	private Statement parseYapCall() {
+
+		popNext();
+		popNextExpected(Token.TokenType.OPENING_ROUND_BRACKET);
+
+		Expression yapExpression = parseExpression();
+
+		popNextExpected(Token.TokenType.CLOSING_ROUND_BRACKET);
+
+		return new YapCall(yapExpression);
 	}
 
 	private Statement parseVariableDeclaration() {
@@ -192,6 +220,9 @@ public class Parser {
 		switch (peekNext().tokenType()) {
 			case Token.TokenType.KEYWORD_BET -> {
 				return parseVariableDeclaration();
+			}
+			case Token.TokenType.FUNCTION_YAP -> {
+				return parseYapCall();
 			}
             default -> {
                 return parseExpression();

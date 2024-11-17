@@ -1,4 +1,4 @@
-package wins.insomnia.sppcompiler.parse.literal;
+package wins.insomnia.sppcompiler.tree.literal;
 
 public class LiteralNull extends Literal<String> {
 

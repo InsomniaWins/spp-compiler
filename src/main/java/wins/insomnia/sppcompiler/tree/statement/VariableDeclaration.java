@@ -1,6 +1,6 @@
 package wins.insomnia.sppcompiler.tree.statement;
 
-import wins.insomnia.sppcompiler.parse.literal.LiteralNull;
+import wins.insomnia.sppcompiler.tree.literal.LiteralNull;
 import wins.insomnia.sppcompiler.tree.expression.Expression;
 
 public class VariableDeclaration extends Statement {

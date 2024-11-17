@@ -1,7 +1,24 @@
-bet x = 0;
-x = x + 1;
-x = x + 1;
-x = x + 1;
-x = x + 1;
-x = x + 1;
-x = x + 1;
+// this is a sample program of skibidi++
+// you can type comments with "//"
+# or you can even do "#"
+
+// variables can be declared without initialization (null default value)
+bet mew;
+yap("mew: " + mew);
+
+// they can also be defined in same instruction and declaration
+bet mog = 5;
+// or be defined after declaration
+mew = 2;
+
+// yap your results with string + generic concatination
+yap("mew: " + mew);
+yap("mog: " + mog);
+
+// math will also work in same statement
+yap("mew + mog = " + mew * mog);
+
+// and finally . . .
+// a "Hello, World!" program
+bet sigma = "Hello, Rizzlers!";
+yap(sigma);

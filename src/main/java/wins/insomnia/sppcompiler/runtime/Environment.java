@@ -1,6 +1,7 @@
 package wins.insomnia.sppcompiler.runtime;
 
-import wins.insomnia.sppcompiler.parse.literal.LiteralNull;
+import wins.insomnia.sppcompiler.tree.literal.LiteralBool;
+import wins.insomnia.sppcompiler.tree.literal.LiteralNull;
 import wins.insomnia.sppcompiler.tree.expression.Expression;
 
 import java.util.HashMap;
@@ -24,6 +25,11 @@ public class Environment {
         this.PARENT = parent;
         this.VARIABLES = new HashMap<>();
 
+    }
+
+    public void initializeGlobalScope() {
+        declareAndInitializeVariable("false", new LiteralBool(false));
+        declareAndInitializeVariable("true", new LiteralBool(true));
     }
 
     public Environment getParent() {
