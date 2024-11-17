@@ -1,13 +1,12 @@
 package wins.insomnia.sppcompiler;
 
 import wins.insomnia.sppcompiler.parse.Parser;
-import wins.insomnia.sppcompiler.parse.SyntaxAnalyzer;
-import wins.insomnia.sppcompiler.parse.SyntaxTree;
+import wins.insomnia.sppcompiler.runtime.Interpreter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class SPPCompiler {
@@ -24,14 +23,33 @@ public class SPPCompiler {
 
 
 		String sourceFilePath = args[0];
-		compileSourceFile(sourceFilePath);
+		Program program = compileSourceFile(sourceFilePath);
+
+        System.out.println("Compiled successfully!\nWould you like to run your program? (Y/N)");
+		Scanner scanner = new Scanner(System.in);
+		String answer = scanner.nextLine().toLowerCase();
+
+		while (!answer.equals("y") && !answer.equals("n")) {
+
+			System.out.println("Please enter only either 'y' (for yes) or 'n' (for no) without the single quotes.");
+			answer = scanner.nextLine().toLowerCase();
+
+		}
+
+
+		if (answer.equals("y")) {
+
+			Interpreter interpreter = new Interpreter();
+			interpreter.runProgram(program);
+
+		}
 
 
 	}
 
 
 
-	private static void compileSourceFile(String sourceFilePath) {
+	private static Program compileSourceFile(String sourceFilePath) {
 
 		File sourceFile = new File(sourceFilePath);
 
@@ -63,10 +81,7 @@ public class SPPCompiler {
 
 		// parse tokens
 		Parser parser = new Parser(tokens);
-
-
-		// syntax analysis
-		SyntaxAnalyzer syntaxAnalyzer = new SyntaxAnalyzer(parser);
+        return parser.parseProgram();
 
 	}
 

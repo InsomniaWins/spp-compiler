@@ -103,6 +103,7 @@ public class LexicalAnalyzer {
 						case "sigma" -> TOKENS.add(new Token(Token.TokenType.KEYWORD_SIGMA, null, currentLineIndex));
 						case "lockIn" -> TOKENS.add(new Token(Token.TokenType.FUNCTION_LOCK_IN, null, currentLineIndex));
 						case "flex" -> TOKENS.add(new Token(Token.TokenType.KEYWORD_FLEX, null, currentLineIndex));
+						case "null" -> TOKENS.add(new Token(Token.TokenType.LITERAL_NULL, null, currentLineIndex));
 						default -> TOKENS.add(new Token(Token.TokenType.IDENTIFIER, tokenValue, currentLineIndex));
 
 					}

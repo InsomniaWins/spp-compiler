@@ -4,6 +4,7 @@ import wins.insomnia.sppcompiler.Program;
 import wins.insomnia.sppcompiler.Statement;
 import wins.insomnia.sppcompiler.Token;
 import wins.insomnia.sppcompiler.parse.literal.LiteralInteger;
+import wins.insomnia.sppcompiler.parse.literal.LiteralNull;
 import wins.insomnia.sppcompiler.parse.misc.BinaryExpression;
 import wins.insomnia.sppcompiler.parse.misc.Expression;
 import wins.insomnia.sppcompiler.parse.misc.Identifier;
@@ -106,6 +107,13 @@ public class Parser {
 				return new Identifier((String) popNext().tokenValue());
 			}
 
+			case Token.TokenType.LITERAL_NULL -> {
+
+				popNext();
+				return new LiteralNull();
+
+			}
+
 			case Token.TokenType.LITERAL_INT -> {
 				return new LiteralInteger((Integer) popNext().tokenValue());
 			}
@@ -140,8 +148,6 @@ public class Parser {
 	public Parser(ArrayList<Token> tokens) {
 
 		this.tokens = tokens;
-		Program program = parseProgram();
-		System.out.println(program);
 
 	}
 

@@ -1,5 +1,7 @@
 package wins.insomnia.sppcompiler;
 
+import java.util.HashMap;
+
 public record Token(TokenType tokenType, Object tokenValue, int lineIndex) {
 
 	public enum TokenType {
@@ -12,7 +14,6 @@ public record Token(TokenType tokenType, Object tokenValue, int lineIndex) {
 		KEYWORD_SIGMA,
 		KEYWORD_IS_GIVING,
 		KEYWORD_INT,
-		KEYWORD_NULL,
 
 
 		// literals
@@ -21,6 +22,7 @@ public record Token(TokenType tokenType, Object tokenValue, int lineIndex) {
 		LITERAL_DOUBLE,
 		LITERAL_BOOLEAN,
 		LITERAL_VOID,
+		LITERAL_NULL,
 
 
 		// operators

@@ -6,6 +6,9 @@ public class Program {
 
     private final ArrayList<Statement> STATEMENTS = new ArrayList<>();
 
+    public ArrayList<Statement> getStatements() {
+        return new ArrayList<>(STATEMENTS);
+    }
 
     public void pushStatement(Statement statement) {
         STATEMENTS.add(statement);

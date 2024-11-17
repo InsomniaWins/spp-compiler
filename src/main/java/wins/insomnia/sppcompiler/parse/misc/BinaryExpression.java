@@ -1,6 +1,10 @@
 package wins.insomnia.sppcompiler.parse.misc;
 
+import wins.insomnia.sppcompiler.Statement;
 import wins.insomnia.sppcompiler.Token;
+import wins.insomnia.sppcompiler.parse.literal.LiteralInteger;
+import wins.insomnia.sppcompiler.parse.literal.LiteralNull;
+import wins.insomnia.sppcompiler.runtime.Environment;
 
 public class BinaryExpression extends Expression {
 
@@ -16,7 +20,7 @@ public class BinaryExpression extends Expression {
 
     }
 
-    public Expression getLeft() {
+    public Expression getLeftExpression() {
         return LEFT_EXPRESSION;
     }
 
@@ -30,7 +34,40 @@ public class BinaryExpression extends Expression {
 
     @Override
     public String toString() {
-        return "BinaryExpression : {" + getLeft() + ' ' + getOperator() + ' ' + getRightExpression() + "}";
+        return "BinaryExpression : {" + getLeftExpression() + ' ' + getOperator() + ' ' + getRightExpression() + "}";
     }
+
+    @Override
+    public Expression evaluate(Environment environment) {
+
+        Expression leftExpression = getLeftExpression().evaluate(environment);
+        Expression rightExpression = getRightExpression().evaluate(environment);
+
+        if (leftExpression instanceof LiteralInteger leftInt && rightExpression instanceof LiteralInteger rightInt) {
+
+            switch (getOperator()) {
+                case OPERATOR_ADD -> {
+                    return new LiteralInteger(leftInt.getValue() + rightInt.getValue());
+                }
+
+                case OPERATOR_SUBTRACT -> {
+                    return new LiteralInteger(leftInt.getValue() - rightInt.getValue());
+                }
+
+                case OPERATOR_MULTIPLY -> {
+                    return new LiteralInteger(leftInt.getValue() * rightInt.getValue());
+                }
+
+                case OPERATOR_DIVIDE -> {
+                    return new LiteralInteger(leftInt.getValue() / rightInt.getValue());
+                }
+            }
+
+        }
+
+        return new LiteralNull();
+
+    }
+
 
 }

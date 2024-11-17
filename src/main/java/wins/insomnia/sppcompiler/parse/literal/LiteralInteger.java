@@ -1,18 +1,12 @@
 package wins.insomnia.sppcompiler.parse.literal;
 
-import wins.insomnia.sppcompiler.parse.SyntaxTreeNode;
-import wins.insomnia.sppcompiler.parse.misc.Expression;
 
-public class LiteralInteger extends Expression {
-
-	public Integer value;
-
-	public LiteralInteger(int value) {
-		this.value = value;
+public class LiteralInteger extends Literal<Integer> {
+	public LiteralInteger() {
+		super(0);
 	}
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
+	public LiteralInteger(Integer value) {
+		super(value);
 	}
 }
