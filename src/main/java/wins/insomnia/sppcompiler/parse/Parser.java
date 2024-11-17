@@ -2,16 +2,13 @@ package wins.insomnia.sppcompiler.parse;
 
 import wins.insomnia.sppcompiler.tree.expression.AssignmentExpression;
 import wins.insomnia.sppcompiler.tree.literal.LiteralString;
-import wins.insomnia.sppcompiler.tree.statement.Program;
+import wins.insomnia.sppcompiler.tree.statement.*;
 import wins.insomnia.sppcompiler.Token;
 import wins.insomnia.sppcompiler.tree.literal.LiteralInteger;
 import wins.insomnia.sppcompiler.tree.literal.LiteralNull;
 import wins.insomnia.sppcompiler.tree.expression.BinaryExpression;
 import wins.insomnia.sppcompiler.tree.expression.Expression;
 import wins.insomnia.sppcompiler.tree.expression.Identifier;
-import wins.insomnia.sppcompiler.tree.statement.Statement;
-import wins.insomnia.sppcompiler.tree.statement.VariableDeclaration;
-import wins.insomnia.sppcompiler.tree.statement.YapCall;
 
 import java.util.ArrayList;
 
@@ -180,6 +177,18 @@ public class Parser {
 
 	}
 
+	private Statement parseProgramEepyCall() {
+
+		popNext();
+		popNextExpected(Token.TokenType.OPENING_ROUND_BRACKET);
+
+		Expression eepyExpression = parseExpression();
+
+		popNextExpected(Token.TokenType.CLOSING_ROUND_BRACKET);
+
+		return new ProgramEepyCall(eepyExpression);
+	}
+
 	private Statement parseYapCall() {
 
 		popNext();
@@ -223,6 +232,9 @@ public class Parser {
 			}
 			case Token.TokenType.FUNCTION_YAP -> {
 				return parseYapCall();
+			}
+			case Token.TokenType.FUNCTION_PROGRAM_EEPY -> {
+				return parseProgramEepyCall();
 			}
             default -> {
                 return parseExpression();

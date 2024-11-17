@@ -2,12 +2,10 @@ package wins.insomnia.sppcompiler.runtime;
 
 import wins.insomnia.sppcompiler.tree.expression.AssignmentExpression;
 import wins.insomnia.sppcompiler.tree.literal.Literal;
-import wins.insomnia.sppcompiler.tree.statement.Program;
-import wins.insomnia.sppcompiler.tree.statement.Statement;
+import wins.insomnia.sppcompiler.tree.literal.LiteralInteger;
+import wins.insomnia.sppcompiler.tree.statement.*;
 import wins.insomnia.sppcompiler.tree.literal.LiteralNull;
 import wins.insomnia.sppcompiler.tree.expression.Expression;
-import wins.insomnia.sppcompiler.tree.statement.VariableDeclaration;
-import wins.insomnia.sppcompiler.tree.statement.YapCall;
 
 import java.util.ArrayList;
 
@@ -51,6 +49,22 @@ public class Interpreter {
                     System.out.println(literal.getValue());
                 } else {
                     System.out.println(yapInput);
+                }
+
+            }
+            else if (statement instanceof ProgramEepyCall programEepyCall) {
+
+                Expression eepyInput = programEepyCall.getValue().evaluate(environment);
+
+                if (!(eepyInput instanceof LiteralInteger)) {
+                    throw new RuntimeException("Attempted to call program_eepy() with non-integer-literal argument!");
+                }
+
+                long sleepValue = Long.valueOf(((LiteralInteger) eepyInput).getValue());
+                try {
+                    Thread.sleep(sleepValue);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
 
             }

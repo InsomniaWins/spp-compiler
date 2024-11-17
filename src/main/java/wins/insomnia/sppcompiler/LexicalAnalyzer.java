@@ -86,7 +86,7 @@ public class LexicalAnalyzer {
 
 					tokenValueBuilder.append(currentChar);
 
-					while (hasNextChar() && (Character.isAlphabetic(peekChar()) || Character.isDigit(peekChar()))) {
+					while (hasNextChar() && (Character.isAlphabetic(peekChar()) || Character.isDigit(peekChar()) || peekChar() == '_')) {
 
 						currentChar = nextChar();
 						tokenValueBuilder.append(currentChar);
@@ -100,6 +100,7 @@ public class LexicalAnalyzer {
 						case "void" -> TOKENS.add(new Token(Token.TokenType.LITERAL_VOID, null, currentLineIndex));
 						case "bet" -> TOKENS.add(new Token(Token.TokenType.KEYWORD_BET, null, currentLineIndex));
 						case "yap" -> TOKENS.add(new Token(Token.TokenType.FUNCTION_YAP, null, currentLineIndex));
+						case "program_eepy" -> TOKENS.add(new Token(Token.TokenType.FUNCTION_PROGRAM_EEPY, null, currentLineIndex));
 						case "null" -> TOKENS.add(new Token(Token.TokenType.LITERAL_NULL, null, currentLineIndex));
 						default -> TOKENS.add(new Token(Token.TokenType.IDENTIFIER, tokenValue, currentLineIndex));
 

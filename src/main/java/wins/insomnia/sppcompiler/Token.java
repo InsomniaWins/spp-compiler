@@ -5,7 +5,7 @@ public record Token(TokenType tokenType, Object tokenValue, int lineIndex) {
 	public enum TokenType {
 		// built-in functions
 		FUNCTION_YAP,       // yap( . . . )
-
+		FUNCTION_PROGRAM_EEPY,       //program_eepy( <int> )
 
 		// keywords
 		KEYWORD_BET,        // bet
