@@ -1,4 +1,4 @@
-package wins.insomnia.sppcompiler.parse.misc;
+package wins.insomnia.sppcompiler.tree.expression;
 
 
 import wins.insomnia.sppcompiler.runtime.Environment;

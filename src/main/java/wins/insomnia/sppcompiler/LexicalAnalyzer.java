@@ -98,7 +98,7 @@ public class LexicalAnalyzer {
 					switch (tokenValue) {
 
 						case "void" -> TOKENS.add(new Token(Token.TokenType.LITERAL_VOID, null, currentLineIndex));
-						case "int" -> TOKENS.add(new Token(Token.TokenType.KEYWORD_INT, null, currentLineIndex));
+						case "bet" -> TOKENS.add(new Token(Token.TokenType.KEYWORD_BET, null, currentLineIndex));
 						case "isGiving" -> TOKENS.add(new Token(Token.TokenType.KEYWORD_IS_GIVING, null, currentLineIndex));
 						case "sigma" -> TOKENS.add(new Token(Token.TokenType.KEYWORD_SIGMA, null, currentLineIndex));
 						case "lockIn" -> TOKENS.add(new Token(Token.TokenType.FUNCTION_LOCK_IN, null, currentLineIndex));

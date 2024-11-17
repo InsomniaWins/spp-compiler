@@ -1,8 +1,7 @@
 package wins.insomnia.sppcompiler.runtime;
 
-import wins.insomnia.sppcompiler.parse.literal.Literal;
 import wins.insomnia.sppcompiler.parse.literal.LiteralNull;
-import wins.insomnia.sppcompiler.parse.misc.Expression;
+import wins.insomnia.sppcompiler.tree.expression.Expression;
 
 import java.util.HashMap;
 

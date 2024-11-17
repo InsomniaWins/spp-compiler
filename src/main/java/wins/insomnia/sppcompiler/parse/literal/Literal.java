@@ -1,6 +1,6 @@
 package wins.insomnia.sppcompiler.parse.literal;
 
-import wins.insomnia.sppcompiler.parse.misc.Expression;
+import wins.insomnia.sppcompiler.tree.expression.Expression;
 
 public class Literal<T> extends Expression {
 

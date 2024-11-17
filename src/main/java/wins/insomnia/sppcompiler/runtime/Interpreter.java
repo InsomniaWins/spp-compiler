@@ -1,34 +1,29 @@
 package wins.insomnia.sppcompiler.runtime;
 
-import wins.insomnia.sppcompiler.Program;
-import wins.insomnia.sppcompiler.Statement;
+import wins.insomnia.sppcompiler.tree.statement.Program;
+import wins.insomnia.sppcompiler.tree.statement.Statement;
 import wins.insomnia.sppcompiler.parse.literal.LiteralBool;
-import wins.insomnia.sppcompiler.parse.literal.LiteralInteger;
 import wins.insomnia.sppcompiler.parse.literal.LiteralNull;
-import wins.insomnia.sppcompiler.parse.misc.Expression;
+import wins.insomnia.sppcompiler.tree.expression.Expression;
 import java.util.ArrayList;
 
 public class Interpreter {
 
-    private Statement evaluateStatement(Statement statement, Environment environment) {
+    private Expression evaluateExpression(Expression expression, Environment environment) {
 
-        if (statement instanceof Expression expression) {
+        if (expression == null) return new LiteralNull();
 
-            return expression.evaluate(environment);
-
-        }
-
-        return new LiteralNull();
+        return expression.evaluate(environment);
 
     }
 
 
     private void evaluateProgram(Program program, Environment environment) {
 
-        ArrayList<Statement> statements = program.getStatements();
-        for (Statement statement : statements) {
+        ArrayList<Expression> expressions = program.getExpressions();
+        for (Expression expression : expressions) {
 
-            Statement result = evaluateStatement(statement, environment);
+            Expression result = evaluateExpression(expression, environment);
             System.out.println(result);
 
         }

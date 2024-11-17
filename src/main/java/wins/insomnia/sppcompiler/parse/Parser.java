@@ -1,13 +1,13 @@
 package wins.insomnia.sppcompiler.parse;
 
-import wins.insomnia.sppcompiler.Program;
-import wins.insomnia.sppcompiler.Statement;
+import wins.insomnia.sppcompiler.tree.statement.Program;
+import wins.insomnia.sppcompiler.tree.statement.Statement;
 import wins.insomnia.sppcompiler.Token;
 import wins.insomnia.sppcompiler.parse.literal.LiteralInteger;
 import wins.insomnia.sppcompiler.parse.literal.LiteralNull;
-import wins.insomnia.sppcompiler.parse.misc.BinaryExpression;
-import wins.insomnia.sppcompiler.parse.misc.Expression;
-import wins.insomnia.sppcompiler.parse.misc.Identifier;
+import wins.insomnia.sppcompiler.tree.expression.BinaryExpression;
+import wins.insomnia.sppcompiler.tree.expression.Expression;
+import wins.insomnia.sppcompiler.tree.expression.Identifier;
 import java.util.ArrayList;
 
 public class Parser {
@@ -49,7 +49,7 @@ public class Parser {
 
 		while (!tokens.isEmpty()) {
 
-			program.pushStatement(parseStatement());
+			program.pushExpression(parseStatement());
 
 		}
 
@@ -138,7 +138,7 @@ public class Parser {
 
 	}
 
-	private Statement parseStatement() {
+	private Expression parseStatement() {
 
 		return parseExpression();
 

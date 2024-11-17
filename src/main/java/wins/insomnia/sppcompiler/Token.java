@@ -13,7 +13,7 @@ public record Token(TokenType tokenType, Object tokenValue, int lineIndex) {
 		KEYWORD_FLEX,
 		KEYWORD_SIGMA,
 		KEYWORD_IS_GIVING,
-		KEYWORD_INT,
+		KEYWORD_BET,
 
 
 		// literals

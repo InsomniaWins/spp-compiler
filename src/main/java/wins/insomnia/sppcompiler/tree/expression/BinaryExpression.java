@@ -1,6 +1,5 @@
-package wins.insomnia.sppcompiler.parse.misc;
+package wins.insomnia.sppcompiler.tree.expression;
 
-import wins.insomnia.sppcompiler.Statement;
 import wins.insomnia.sppcompiler.Token;
 import wins.insomnia.sppcompiler.parse.literal.LiteralInteger;
 import wins.insomnia.sppcompiler.parse.literal.LiteralNull;
