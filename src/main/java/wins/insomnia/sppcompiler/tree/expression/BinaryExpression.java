@@ -71,7 +71,7 @@ public class BinaryExpression extends Expression {
                 switch (getOperator()) {
                     case OPERATOR_ADD -> {
                         String concatString = ((LiteralString) leftExpression).getValue();
-                        return new LiteralString(concatString + ((Literal<?>) rightExpression).getValue());
+                        return new LiteralString(concatString + ((Literal<?>) rightExpression).getReadableValue());
                     }
                 }
             }

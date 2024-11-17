@@ -28,8 +28,9 @@ public class Environment {
     }
 
     public void initializeGlobalScope() {
-        declareAndInitializeVariable("cap", new LiteralBool(false));
-        declareAndInitializeVariable("frfr", new LiteralBool(true));
+        declareAndInitializeVariable(LiteralBool.FALSE_SYNONYM, new LiteralBool(false));
+        declareAndInitializeVariable(LiteralBool.TRUE_SYNONYM, new LiteralBool(true));
+        declareAndInitializeVariable("fact", new LiteralBool(true));
     }
 
     public Environment getParent() {

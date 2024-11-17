@@ -2,6 +2,7 @@ package wins.insomnia.sppcompiler.runtime;
 
 import wins.insomnia.sppcompiler.tree.expression.AssignmentExpression;
 import wins.insomnia.sppcompiler.tree.literal.Literal;
+import wins.insomnia.sppcompiler.tree.literal.LiteralBool;
 import wins.insomnia.sppcompiler.tree.literal.LiteralInteger;
 import wins.insomnia.sppcompiler.tree.statement.*;
 import wins.insomnia.sppcompiler.tree.literal.LiteralNull;
@@ -46,7 +47,13 @@ public class Interpreter {
                 Expression yapInput = yapCall.getValue().evaluate(environment);
 
                 if (yapInput instanceof Literal<?> literal) {
-                    System.out.println(literal.getValue());
+
+                    if (yapInput instanceof LiteralBool bool) {
+                        System.out.println(bool.getValue() ? LiteralBool.TRUE_SYNONYM : LiteralBool.FALSE_SYNONYM);
+                    } else {
+                        System.out.println(literal.getValue());
+                    }
+
                 } else {
                     System.out.println(yapInput);
                 }

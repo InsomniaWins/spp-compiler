@@ -1,0 +1,30 @@
+
+sigma user_defined_function(param1, param2, param3) {
+
+    bet local_scope = frfr;
+
+    // this will work
+    yap("inside function local_scope: " + local_scope);
+
+    // this will work if global_scope is defined in male() function
+    yap("inside function global_scope: " + global_scope);
+
+}
+
+// entry/main function
+sigma male() {
+
+    // declare and initialize global_scope variable
+    bet global_scope = cap;
+
+    // call user_defined_function
+    user_defined_function(negative_aura, negative_aura, global_scope);
+
+    // this will work
+    yap("inside function global_scope: " + global_scope);
+
+    // this will not
+    yap("inside function local_scope: " + local_scope);
+
+}
+

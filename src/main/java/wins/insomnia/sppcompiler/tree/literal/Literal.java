@@ -14,6 +14,10 @@ public class Literal<T> extends Expression {
         return value;
     }
 
+    public String getReadableValue() {
+        return String.valueOf(value);
+    }
+
     public void setValue(T newValue) {
         value = newValue;
     }

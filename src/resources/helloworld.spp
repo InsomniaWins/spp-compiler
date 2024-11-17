@@ -1,5 +1,6 @@
 
+bet hello_world_string = "Hello, Rizzlers!";
 
-
+yap(hello_world_string);
 
 

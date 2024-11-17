@@ -116,6 +116,7 @@ public class Parser {
 		return leftExpression;
 	}
 
+
 	private Expression parsePrimaryExpression() {
 
 		Token nextToken = peekNext();
