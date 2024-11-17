@@ -25,24 +25,10 @@ public class SPPCompiler {
 		String sourceFilePath = args[0];
 		Program program = compileSourceFile(sourceFilePath);
 
-        System.out.println("Compiled successfully!\nWould you like to run your program? (Y/N)");
-		Scanner scanner = new Scanner(System.in);
-		String answer = scanner.nextLine().toLowerCase();
+        System.out.println("Compiled successfully!");
 
-		while (!answer.equals("y") && !answer.equals("n")) {
-
-			System.out.println("Please enter only either 'y' (for yes) or 'n' (for no) without the single quotes.");
-			answer = scanner.nextLine().toLowerCase();
-
-		}
-
-
-		if (answer.equals("y")) {
-
-			Interpreter interpreter = new Interpreter();
-			interpreter.runProgram(program);
-
-		}
+		Interpreter interpreter = new Interpreter();
+		interpreter.runProgram(program);
 
 
 	}

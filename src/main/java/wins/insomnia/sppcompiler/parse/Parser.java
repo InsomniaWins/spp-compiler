@@ -157,6 +157,8 @@ public class Parser {
 				return new LiteralString((String) popNext().tokenValue());
 			}
 
+
+
 			case Token.TokenType.OPENING_ROUND_BRACKET -> {
 				Token openBracket = popNext();
 				Expression valueWithinBrackets = parseExpression();

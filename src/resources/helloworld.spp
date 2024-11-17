@@ -2,26 +2,44 @@
 // you can type comments with "//"
 # or you can even do "#"
 
+
 // variables can be declared without initialization (null default value)
 bet mew;
 yap("mew: " + mew);
 
 // they can also be defined in same instruction and declaration
 bet mog = 5;
+
 // or be defined after declaration
 mew = 2;
+
 
 // yap your results with string + generic concatenation
 yap("mew: " + mew);
 yap("mog: " + mog);
+
 
 // math will also work in same statement
 yap("mew + mog = " + mew * mog);
 
 
 
-// timed events
-program_eepy(1000);
+// timed events and mixed indentation
+bet timer = 3;
+    yap(timer);
+        timer = timer - 1;
+
+    program_eepy(1000);
+yap(timer);
+    timer = timer - 1;
+
+        program_eepy(1000);
+    yap(timer);
+timer = timer - 1;
+
+    program_eepy(1000);
+        yap(timer);
+    timer = timer - 1;
 
 
 
