@@ -6,14 +6,14 @@ import java.util.ArrayList;
 
 public class Program extends Statement {
 
-    private final ArrayList<Expression> EXPRESSIONS = new ArrayList<>();
+    private final ArrayList<Statement> STATEMENTS = new ArrayList<>();
 
-    public ArrayList<Expression> getExpressions() {
-        return new ArrayList<>(EXPRESSIONS);
+    public ArrayList<Statement> getStatements() {
+        return new ArrayList<>(STATEMENTS);
     }
 
-    public void pushExpression(Expression expression) {
-        EXPRESSIONS.add(expression);
+    public void pushStatement(Statement statement) {
+        STATEMENTS.add(statement);
     }
 
 
@@ -22,11 +22,11 @@ public class Program extends Statement {
 
         StringBuilder outString = new StringBuilder("- Start Program -\n");
 
-        for (Expression expression : EXPRESSIONS) {
+        for (Statement statement : STATEMENTS) {
 
-            if (expression == null) continue;
+            if (statement == null) continue;
 
-            outString.append(expression).append('\n');
+            outString.append(statement).append('\n');
         }
 
         outString.append("- End Program -");

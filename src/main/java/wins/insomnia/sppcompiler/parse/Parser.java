@@ -1,13 +1,15 @@
 package wins.insomnia.sppcompiler.parse;
 
 import wins.insomnia.sppcompiler.tree.statement.Program;
-import wins.insomnia.sppcompiler.tree.statement.Statement;
 import wins.insomnia.sppcompiler.Token;
 import wins.insomnia.sppcompiler.parse.literal.LiteralInteger;
 import wins.insomnia.sppcompiler.parse.literal.LiteralNull;
 import wins.insomnia.sppcompiler.tree.expression.BinaryExpression;
 import wins.insomnia.sppcompiler.tree.expression.Expression;
 import wins.insomnia.sppcompiler.tree.expression.Identifier;
+import wins.insomnia.sppcompiler.tree.statement.Statement;
+import wins.insomnia.sppcompiler.tree.statement.VariableDeclaration;
+
 import java.util.ArrayList;
 
 public class Parser {
@@ -49,7 +51,11 @@ public class Parser {
 
 		while (!tokens.isEmpty()) {
 
-			program.pushExpression(parseStatement());
+			Statement parsedStatement = parseStatement();
+
+			if (parsedStatement == null) continue;
+
+			program.pushStatement(parsedStatement);
 
 		}
 
@@ -103,6 +109,11 @@ public class Parser {
 
 		switch (tokenType) {
 
+			case Token.TokenType.NEW_LINE -> {
+				popNext();
+				return null;
+			}
+
 			case Token.TokenType.IDENTIFIER -> {
 				return new Identifier((String) popNext().tokenValue());
 			}
@@ -138,10 +149,39 @@ public class Parser {
 
 	}
 
-	private Expression parseStatement() {
+	private Statement parseVariableDeclaration() {
 
-		return parseExpression();
+		Token token = popNext();
+		Token identifierNameToken = popNextExpected(Token.TokenType.IDENTIFIER);
 
+		String identifierName = (String) identifierNameToken.tokenValue();
+
+		if (peekNext().tokenType() == Token.TokenType.NEW_LINE) {
+
+			popNext();
+			return new VariableDeclaration(identifierName);
+
+		}
+
+		popNextExpected(Token.TokenType.OPERATOR_SET_EQUALS);
+
+		VariableDeclaration variableDeclaration = new VariableDeclaration(identifierName, parseExpression());
+
+		if (peekNext().tokenType() == Token.TokenType.NEW_LINE) popNext();
+
+		return variableDeclaration;
+	}
+
+
+	private Statement parseStatement() {
+		switch (peekNext().tokenType()) {
+			case Token.TokenType.KEYWORD_BET -> {
+				return parseVariableDeclaration();
+			}
+            default -> {
+                return parseExpression();
+            }
+        }
 	}
 
 

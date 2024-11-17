@@ -5,9 +5,22 @@ import wins.insomnia.sppcompiler.tree.statement.Statement;
 import wins.insomnia.sppcompiler.parse.literal.LiteralBool;
 import wins.insomnia.sppcompiler.parse.literal.LiteralNull;
 import wins.insomnia.sppcompiler.tree.expression.Expression;
+import wins.insomnia.sppcompiler.tree.statement.VariableDeclaration;
+
 import java.util.ArrayList;
 
 public class Interpreter {
+
+    private Expression evaluateVariableDeclaration(VariableDeclaration variableDeclaration, Environment environment) {
+
+        if (variableDeclaration.getValue() != null) {
+            return environment.declareAndInitializeVariable(variableDeclaration.getIdentifier(), variableDeclaration.getValue());
+        } else {
+            return environment.declareVariable(variableDeclaration.getIdentifier());
+        }
+
+
+    }
 
     private Expression evaluateExpression(Expression expression, Environment environment) {
 
@@ -20,11 +33,18 @@ public class Interpreter {
 
     private void evaluateProgram(Program program, Environment environment) {
 
-        ArrayList<Expression> expressions = program.getExpressions();
-        for (Expression expression : expressions) {
+        ArrayList<Statement> statements = program.getStatements();
+        for (Statement statement : statements) {
+            Expression result = null;
 
-            Expression result = evaluateExpression(expression, environment);
-            System.out.println(result);
+            if (statement instanceof Expression expression) {
+                result = evaluateExpression(expression, environment);
+            }
+            else if (statement instanceof VariableDeclaration variableDeclaration) {
+                result = evaluateVariableDeclaration(variableDeclaration, environment).evaluate(environment);
+            }
+
+            System.out.println("statement: " + statement + "\nresult: " + result);
 
         }
 

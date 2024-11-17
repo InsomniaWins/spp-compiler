@@ -30,18 +30,20 @@ public class Environment {
         return PARENT;
     }
 
-    public void declareAndInitializeVariable(String variableName, Expression value) {
+    public Expression declareAndInitializeVariable(String variableName, Expression value) {
         declareVariable(variableName);
         setVariable(variableName, value);
+        return value;
     }
 
-    public void declareVariable(String variableName) {
+    public Expression declareVariable(String variableName) {
 
         if (VARIABLES.containsKey(variableName)) {
             throw new RuntimeException("Failed to declare variable! : already defined \"" + variableName + "\"");
         }
 
         VARIABLES.put(variableName, new LiteralNull());
+        return new LiteralNull();
 
     }
 

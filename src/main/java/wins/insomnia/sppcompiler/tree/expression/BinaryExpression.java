@@ -33,7 +33,7 @@ public class BinaryExpression extends Expression {
 
     @Override
     public String toString() {
-        return "BinaryExpression : {" + getLeftExpression() + ' ' + getOperator() + ' ' + getRightExpression() + "}";
+        return "BinaryExpression : {" + getLeftExpression() + ", " + getOperator() + ", " + getRightExpression() + "}";
     }
 
     @Override

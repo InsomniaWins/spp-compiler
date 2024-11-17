@@ -12,13 +12,22 @@ public class Identifier extends Expression {
     }
 
     @Override
+    public String toString() {
+        return "Identifier: {" + NAME + "}";
+    }
+
+    private Expression getValue(Environment environment) {
+        return environment.getVariableEnvironment(NAME).getVariable(NAME).evaluate(environment);
+    }
+
+    @Override
     public Expression evaluate(Environment environment) {
 
         if (environment == null) {
             throw new RuntimeException("Identifier has no environment to evaluate from! : " + this);
         }
 
-        return environment.getVariableEnvironment(NAME).getVariable(NAME).evaluate(environment);
+        return getValue(environment);
 
     }
 

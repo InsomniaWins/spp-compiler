@@ -1,0 +1,3 @@
+bet x = 2;
+bet y = 3;
+bet z = x + y;
