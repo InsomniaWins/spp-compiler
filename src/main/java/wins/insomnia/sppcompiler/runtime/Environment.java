@@ -5,7 +5,14 @@ import wins.insomnia.sppcompiler.tree.literal.LiteralNull;
 import wins.insomnia.sppcompiler.tree.expression.Expression;
 
 import java.util.HashMap;
+/*
 
+Environments help with scope-variables. For example, a variable
+defined in one closure cannot be used by outside of that closure but
+can be used by nested closures.
+
+
+ */
 public class Environment {
 
     private final Environment PARENT;
@@ -20,6 +27,7 @@ public class Environment {
         this.VARIABLES = new HashMap<>();
     }
 
+    // used for child-environments/closures
     public Environment(Environment parent) {
 
         this.PARENT = parent;
@@ -27,22 +35,26 @@ public class Environment {
 
     }
 
+    // declares global-scope variables
     public void initializeGlobalScope() {
         declareAndInitializeVariable(LiteralBool.FALSE_SYNONYM, new LiteralBool(false));
         declareAndInitializeVariable(LiteralBool.TRUE_SYNONYM, new LiteralBool(true));
         declareAndInitializeVariable("fact", new LiteralBool(true));
     }
 
+    // get parent environment/closure
     public Environment getParent() {
         return PARENT;
     }
 
+    // declares a variable and initializes it to {value}
     public Expression declareAndInitializeVariable(String variableName, Expression value) {
         declareVariable(variableName);
         setVariable(variableName, value);
         return value;
     }
 
+    // desclares a variable with an initial value of NULL
     public Expression declareVariable(String variableName) {
 
         if (VARIABLES.containsKey(variableName)) {
@@ -54,6 +66,7 @@ public class Environment {
 
     }
 
+    // sets a variable and returns the variable
     public Expression setVariable(String variableName, Expression value) {
 
         Environment environment = getVariableEnvironment(variableName);
@@ -66,6 +79,8 @@ public class Environment {
         return value;
     }
 
+    // gets the environment containing the variable name
+    // if the variable is out of scope, it will throw an exception;
     public Environment getVariableEnvironment(String variableName) {
         if (!VARIABLES.containsKey(variableName)) {
 
@@ -79,6 +94,7 @@ public class Environment {
         return this;
     }
 
+    // gets variable expression
     public Expression getVariable(String variableName) {
 
         if (!VARIABLES.containsKey(variableName)) {

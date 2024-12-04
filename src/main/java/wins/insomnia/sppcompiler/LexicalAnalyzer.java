@@ -3,6 +3,15 @@ package wins.insomnia.sppcompiler;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/*
+
+
+converts source code to tokens
+
+
+ */
+
 public class LexicalAnalyzer {
 
 	private final ArrayList<Token> TOKENS;
@@ -45,6 +54,7 @@ public class LexicalAnalyzer {
 	}
 
 
+	// performs lexical analysis and creates tokens from source code
 	private void tokenize() {
 		currentLineIndex = -1;
 

@@ -1,6 +1,11 @@
-
 bet hello_world_string = "Hello, Rizzlers!";
 
 yap(hello_world_string);
 
+program_eepy(1000);
 
+bet sigma_math = 12;
+
+sigma_math = (sigma_math * 12) / (sigma_math - 3);
+
+yap("1 second after yapping . . . " + sigma_math);

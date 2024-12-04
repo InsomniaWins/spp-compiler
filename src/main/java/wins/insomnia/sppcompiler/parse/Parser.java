@@ -16,10 +16,12 @@ public class Parser {
 
 	private ArrayList<Token> tokens;
 
+	// preview next token to be popped from the stack
 	private Token peekNext() {
 		return peekNext(0);
 	}
 
+	// preview the next + offset token to be popped from stack
 	private Token peekNext(int offset) {
 
 		if (tokens.size() - 1 < offset) {
@@ -29,6 +31,8 @@ public class Parser {
 		return tokens.get(offset);
 	}
 
+	// pop the next token from the stack
+	// if the token is not equal to {tokenType}, throw an exception
 	private Token popNextExpected(Token.TokenType tokenType) {
 		Token token = popNext();
 		if (token == null || token.tokenType() != tokenType) {
@@ -37,6 +41,7 @@ public class Parser {
 		return token;
 	}
 
+	// pop next token from the stack
 	private Token popNext() {
 		Token returnToken = tokens.getFirst(); 
 		tokens.removeFirst();
@@ -45,6 +50,7 @@ public class Parser {
 	}
 
 
+	// creates an returns a program from the parsed statements
 	public Program parseProgram() {
 
 		Program program = new Program();
@@ -63,10 +69,12 @@ public class Parser {
 
 	}
 
+	// parses expression (should be used for root node)
 	private Expression parseExpression() {
 		return parseAssignmentExpression();
 	}
 
+	// parses an assignment expression
 	private Expression parseAssignmentExpression() {
 		Expression left = parseAdditionExpression();
 
@@ -84,6 +92,7 @@ public class Parser {
 		return left;
 	}
 
+	// parses an addition expression
 	private Expression parseAdditionExpression() {
 
 		Expression leftExpression = parseMultiplicationExpression();
@@ -100,6 +109,7 @@ public class Parser {
 		return leftExpression;
 	}
 
+	// parses a multiplication expression
 	private Expression parseMultiplicationExpression() {
 
 		Expression leftExpression = parsePrimaryExpression();
@@ -116,12 +126,13 @@ public class Parser {
 		return leftExpression;
 	}
 
-
+	// parses the primary expression into tokens
 	private Expression parsePrimaryExpression() {
 
 		Token nextToken = peekNext();
 		Token.TokenType tokenType = nextToken.tokenType();
 
+		// handle next/first token
 		switch (tokenType) {
 
 			case Token.TokenType.FUNCTION_YAP -> {
@@ -180,6 +191,7 @@ public class Parser {
 
 	}
 
+	// parse the program_eepy function
 	private Statement parseProgramEepyCall() {
 
 		popNext();
@@ -192,6 +204,7 @@ public class Parser {
 		return new ProgramEepyCall(eepyExpression);
 	}
 
+	// parse the yap function
 	private Statement parseYapCall() {
 
 		popNext();
@@ -204,6 +217,7 @@ public class Parser {
 		return new YapCall(yapExpression);
 	}
 
+	// parse a variable declaration
 	private Statement parseVariableDeclaration() {
 
 		Token token = popNext();
@@ -227,7 +241,7 @@ public class Parser {
 		return variableDeclaration;
 	}
 
-
+	// generic, parse statement
 	private Statement parseStatement() {
 		switch (peekNext().tokenType()) {
 			case Token.TokenType.KEYWORD_BET -> {
@@ -245,7 +259,7 @@ public class Parser {
         }
 	}
 
-
+	// constructor for parser
 	public Parser(ArrayList<Token> tokens) {
 
 		this.tokens = tokens;

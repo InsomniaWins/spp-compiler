@@ -10,9 +10,17 @@ import wins.insomnia.sppcompiler.tree.expression.Expression;
 
 import java.util.ArrayList;
 
+/*
+
+Used to interpret expressions and get a real value from those expressions.
+
+
+ */
+
 public class Interpreter {
 
 
+    // get evaluated variable declaration expression
     private Expression evaluateVariableDeclaration(VariableDeclaration variableDeclaration, Environment environment) {
 
         if (variableDeclaration.getValue() != null) {
@@ -24,6 +32,7 @@ public class Interpreter {
 
     }
 
+    // get generic evaluated expression
     private Expression evaluateExpression(Expression expression, Environment environment) {
 
         if (expression == null) return new LiteralNull();
@@ -33,12 +42,15 @@ public class Interpreter {
     }
 
 
+    // evaluates/runs main program expression
     private void evaluateProgram(Program program, Environment environment) {
 
+        // loop through program statements
         ArrayList<Statement> statements = program.getStatements();
         for (Statement statement : statements) {
             Expression result = null;
 
+            // evaluate and execute expressions
             if (statement instanceof AssignmentExpression assignmentExpression) {
                 result = assignmentExpression.evaluate(environment);
             }
@@ -87,7 +99,7 @@ public class Interpreter {
 
     }
 
-
+    // executes/runs program with a default global-scope environment/closure
     public Environment runProgram(Program program) {
 
         Environment environment = new Environment();
